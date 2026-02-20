@@ -74,6 +74,10 @@ pipeline {
             }
             steps {
                 sh 'npx playwright test'
+                sh 'npm ci'
+                sh 'npx playwright test'
+                sh 'ls -la reports-e2e || true'
+                sh 'ls -la reports-e2e/html || true'
             }
             post{
                 always{
@@ -81,7 +85,7 @@ pipeline {
                         allowMissing: false,
                         alwaysLinkToLastBuild: true,
                         icon: '',
-                        keepAll: false,
+                        keepAll: true,
                         reportDir: 'reports-e2e/html/',
                         reportFiles: 'index.html',
                         reportName: 'Playwright HTML Report',
