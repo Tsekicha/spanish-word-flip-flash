@@ -28,6 +28,14 @@ pipeline {
                         reuseNode true
                     }
                 }
+                    steps {
+                        // Install dependencies first
+                        sh 'npm ci'
+
+                        // Then run Vitest
+                        sh 'npx vitest run --reporter=verbose'    
+                    }
+                }
                 stage("integration tests"){
                     agent{
                         docker{
@@ -35,15 +43,7 @@ pipeline {
                             reuseNode true
                         }
                     }
-                    
-                }
-                    steps {
-                        // Install dependencies first
-                        sh 'npm ci'
-
-                        // Then run Vitest
-                        sh 'npx vitest run --reporter=verbose'    
-
+                    steps{
                         sh 'npx playwright test'
                     }
                 }
