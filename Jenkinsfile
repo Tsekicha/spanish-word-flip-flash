@@ -36,18 +36,17 @@ pipeline {
                         }
                     }
                     
-                steps{
-                    sh 'npx playwright test'
-                }    
                 }
-                steps {
-                    // Install dependencies first
-                    sh 'npm ci'
+                    steps {
+                        // Install dependencies first
+                        sh 'npm ci'
 
-                    // Then run Vitest
-                    sh 'npx vitest run --reporter=verbose'    
+                        // Then run Vitest
+                        sh 'npx vitest run --reporter=verbose'    
+
+                        sh 'npx playwright test'
+                    }
                 }
-}
             }
         }
 
